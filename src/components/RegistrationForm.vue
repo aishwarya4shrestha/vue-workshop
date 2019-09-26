@@ -1,12 +1,14 @@
 <template>
   <div class="container">
     <div class="card">
-      <div class="heading">
+      <slot name="form-header" />
+
+      <!-- <div class="heading">
         <h4 class="title">Register to create a new account</h4>
-      </div>
+      </div>-->
       <div class="content">
         <form>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="label" for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="name" required />
           </div>
@@ -23,9 +25,12 @@
               placeholder="password"
               required
             />
-          </div>
+          </div>-->
 
-          <button type="submit" class="btn">Submit</button>
+          <slot name="form-field" :error="error" />
+          <!-- Just like props.childer -->
+
+          <button @click.prevent="save" type="submit" class="btn">Submit</button>
         </form>
       </div>
     </div>
@@ -34,7 +39,24 @@
 
 <script>
 export default {
-  name: "RegistrationForm"
+  name: "RegistrationForm",
+  props: ["endpoints", "fields"],
+  data() {
+    return {
+      error: ""
+    };
+  },
+  created() {
+    console.log(this.endpoints);
+  },
+  methods: {
+    async save() {
+      console.log(this.endpoints);
+      const response = "sasa";
+      this.$emit("success", response);
+      //async await
+    }
+  }
 };
 </script>
 
